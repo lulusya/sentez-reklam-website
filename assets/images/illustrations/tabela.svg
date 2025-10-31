@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#0f141a"/>
+  <g transform="translate(200,200)">
+    <rect width="1200" height="500" rx="24" fill="#1a242f" stroke="#2e3c49"/>
+    <rect x="40" y="60" width="1120" height="100" rx="12" fill="#ff6b00"/>
+    <rect x="40" y="200" width="740" height="60" rx="8" fill="#253240"/>
+    <rect x="40" y="280" width="640" height="60" rx="8" fill="#253240"/>
+    <g transform="translate(820,200)">
+      <rect width="340" height="140" rx="12" fill="#11161c" stroke="#2e3c49"/>
+      <text x="24" y="84" font-family="Inter, Arial" font-size="42" fill="#fff">KUTU HARF</text>
+    </g>
+    <circle cx="1120" cy="110" r="10" fill="#fff" opacity="0.7"/>
+    <circle cx="1080" cy="110" r="10" fill="#fff" opacity="0.7"/>
+    <circle cx="1040" cy="110" r="10" fill="#fff" opacity="0.7"/>
+  </g>
+</svg>
