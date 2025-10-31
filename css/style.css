@@ -47,6 +47,11 @@
     --btn-lg-padding-x: 1.5rem;
     --btn-min-size: 44px; /* WCAG 2.2 Target Size AA */
     
+    /* Icon sizes */
+    --icon-inline: 20px;
+    --icon-service: 56px;
+    --icon-value: 48px;
+    
     /* Border Radius */
     --radius-sm: 4px;
     --radius-md: 8px;
@@ -232,7 +237,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: clamp(0.75rem, 1.5vw, 1rem) 0;
 }
 
 .logo {
@@ -256,11 +261,23 @@ section {
     align-items: center;
 }
 
+@media (max-width: 1024px) {
+    .nav-links { gap: 1.25rem; }
+    .logo { font-size: 1.125rem; }
+    .logo-icon { font-size: 1.375rem; }
+}
+
 .nav-links a {
     color: var(--color-dark);
     font-weight: var(--font-weight-medium);
     font-size: 1rem; /* increase for readability */
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--btn-min-size); /* Touch hedefi */
+    padding: 0 0.25rem;
+    border-radius: 8px; /* focus görünürlüğü için */
 }
 
 .nav-links a::after {
@@ -308,8 +325,11 @@ section {
 }
 
 .dropdown-menu li a {
-    display: block;
-    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    min-height: var(--btn-min-size);
     color: var(--color-dark);
 }
 
@@ -343,6 +363,9 @@ section {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    min-width: var(--btn-min-size);
+    min-height: var(--btn-min-size);
+    border-radius: 8px;
 }
 
 .mobile-menu-toggle span {
@@ -597,6 +620,9 @@ section {
     justify-content: center;
 }
 
+/* Inline icon utility */
+.inline-icon { width: var(--icon-inline); height: var(--icon-inline); display: inline-block; }
+
 /* === SECTION HEADERS === */
 .section-header {
     margin-bottom: var(--spacing-lg);
@@ -673,8 +699,8 @@ section {
 }
 
 .service-icon {
-    width: 56px;
-    height: 56px;
+    width: var(--icon-service);
+    height: var(--icon-service);
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -713,7 +739,7 @@ section {
     grid-template-rows: auto 1fr;
     gap: 0.5rem;
 }
-.value-card .value-icon { width: 48px; height: 48px; color: var(--color-primary); }
+.value-card .value-icon { width: var(--icon-value); height: var(--icon-value); color: var(--color-primary); }
 .value-card .value-title { margin: 0.25rem 0; }
 .value-card .value-description { color: var(--color-medium-gray); }
 
