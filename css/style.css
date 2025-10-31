@@ -56,6 +56,8 @@
     --shadow-md: 0 4px 12px rgba(44, 58, 71, 0.12);
     --shadow-lg: 0 8px 24px rgba(44, 58, 71, 0.16);
     --shadow-xl: 0 16px 48px rgba(44, 58, 71, 0.2);
+    --shadow-soft: 0 1px 2px rgba(44,58,71,0.04), 0 4px 10px rgba(44,58,71,0.08);
+    --shadow-hover: 0 8px 20px rgba(44,58,71,0.12), 0 12px 32px rgba(44,58,71,0.16);
     
     /* Transitions */
     --transition-fast: 0.2s ease;
@@ -631,23 +633,93 @@ section {
     color: var(--color-medium-gray);
 }
 
-/* === CARDS === */
+/* === CARDS (Overhaul) === */
 .service-card,
 .value-card,
 .project-item {
     background-color: var(--color-white);
     border-radius: var(--radius-lg);
     padding: var(--card-padding);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition-base);
+    box-shadow: var(--shadow-soft);
     position: relative;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    border: 1px solid var(--color-border);
+}
+
+.service-card::before,
+.value-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    left: 0;
+    width: 4px;
+    background: linear-gradient(180deg, rgba(255,107,0,0), rgba(255,107,0,0.25) 20%, rgba(255,107,0,0.45) 50%, rgba(255,107,0,0.15) 100%);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    opacity: 0.6;
 }
 
 .service-card:hover,
 .value-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(44,58,71,0.12);
 }
+
+.service-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.75rem;
+    min-height: 320px;
+}
+
+@media (min-width: 992px) {
+    .service-card { min-height: 340px; }
+}
+
+.service-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255,107,0,0.1);
+    color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px rgba(255,107,0,0.2);
+}
+
+.service-icon svg { width: 28px; height: 28px; }
+
+.service-title { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+.service-description { color: var(--color-medium-gray); max-inline-size: 58ch; }
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+.service-link::after { content: "→"; transition: transform var(--transition-fast); }
+.service-link:hover::after { transform: translateX(2px); }
+.service-link:focus-visible { outline: 3px solid rgba(255,107,0,0.35); outline-offset: 2px; border-radius: 6px; }
+
+.service-number {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-extrabold);
+    color: rgba(44,58,71,0.06);
+    pointer-events: none;
+}
+
+.value-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.5rem;
+}
+.value-card .value-icon { width: 48px; height: 48px; color: var(--color-primary); }
+.value-card .value-title { margin: 0.25rem 0; }
+.value-card .value-description { color: var(--color-medium-gray); }
 
 /* === GRIDS === */
 .services-grid,
@@ -695,11 +767,14 @@ section {
     overflow: hidden;
 }
 
+.card-image { border-radius: var(--radius-lg); }
 .card-image img {
     width: 100%;
+    height: 100%;
     display: block;
     transition: transform 0.6s ease, filter 0.6s ease;
     transform-origin: center;
+    object-fit: cover;
 }
 
 .card-overlay {
@@ -709,7 +784,7 @@ section {
     flex-direction: column;
     justify-content: flex-end;
     padding: var(--spacing-md);
-    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 100%);
     color: var(--color-white);
     opacity: 0;
     transform: translateY(6%);
@@ -730,6 +805,19 @@ section {
 .card-category { font-size: 0.75rem; opacity: 0.9; }
 .card-meta { display: flex; gap: 0.75rem; opacity: 0.85; font-size: 0.85rem; }
 .card-details { padding: var(--spacing-md); }
+
+/* Project item: ensure consistent visual ratio */
+.project-item .project-image { aspect-ratio: 16/10; border-radius: var(--radius-lg); overflow: hidden; }
+.project-item:hover .project-image img { transform: scale(1.06); filter: saturate(1.1) contrast(1.05); }
+.project-item .project-overlay .project-view { color: #fff; font-weight: 600; }
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+    .service-card:hover,
+    .value-card:hover,
+    .portfolio-card:hover { transform: none; }
+    .card-image img { transition: none; }
+}
 
 /* === PAGE HERO === */
 .page-hero {
